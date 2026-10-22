@@ -1,0 +1,12 @@
+# Temp files
+*.retry
+*.swp
+*~
+
+# Logs
+*.log
+
+# Local secrets
+*.pem
+*.key
+.env
