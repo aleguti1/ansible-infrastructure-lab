@@ -1,0 +1,10 @@
+---
+- name: Manage Linux packages
+  hosts: linux
+  become: true
+
+  tasks:
+    - name: Ensure Git is installed
+      ansible.builtin.apt:
+        name: git
+        state: present
