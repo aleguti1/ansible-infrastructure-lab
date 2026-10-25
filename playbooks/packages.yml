@@ -1,10 +1,27 @@
 ---
-- name: Manage Linux packages
+- name: Install Linux packages
   hosts: linux
   become: true
 
   tasks:
-    - name: Ensure Git is installed
+    - name: Ensure baseline packages are installed
       ansible.builtin.apt:
-        name: git
+        name: 
+          - git
+          - curl
+          - nano
+          - htop
+          - tree
+          - unzip
+          - openssh-server
+        state: present
+
+- name: Install web server packages
+  hosts: web_servers
+  become: true
+
+  tasks:
+    - name: Ensure Nginx is installed
+      ansible.builtin.apt:
+        name: nginx
         state: present
