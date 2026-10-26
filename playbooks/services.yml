@@ -1,0 +1,22 @@
+---
+- name: Ensure services are running
+  hosts: linux
+  become: true
+
+  tasks:
+  - name: Ensure SSH service is enabled
+    ansible.builtin.systemd_service:
+      name: ssh
+      state: started
+      enabled: true
+
+- name: Manage web server services
+  hosts: web_servers
+  become: true
+
+  tasks:
+  - name: Ensure Nginx is running and enabled
+    ansible.builtin.systemd_service:
+      name: nginx
+      state: started
+      enabled: true
