@@ -1,0 +1,13 @@
+---
+- name: Deploy web portal 
+  hosts: halcyon_intranet
+  become: true
+
+  tasks:
+    - name: Copy HTML file to the web server
+      ansible.builtin.copy:
+        src: ../files/index.html
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: '0644'
