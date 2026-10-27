@@ -4,10 +4,17 @@
   become: true
 
   tasks:
+    - name: Ensure intranet document root exists
+      ansible.builtin.file:
+        path: /srv/halcyon/intranet/
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
     - name: Copy HTML file to the web server
       ansible.builtin.copy:
         src: ../files/index.html
-        dest: /var/www/html/index.html
+        dest: /srv/halcyon/intranet/index.html
         owner: root
         group: root
         mode: '0644'
