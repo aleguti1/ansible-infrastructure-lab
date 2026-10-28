@@ -18,3 +18,26 @@
         owner: root
         group: root
         mode: '0644'
+    - name: Copy Halcyon site config file to web server
+      ansible.builtin.copy:
+        src: ../files/halcyon.conf
+        dest: /etc/nginx/sites-available/halcyon.conf
+        owner: root
+        group: root
+        mode: '0644'
+    - name: Ensure the default Nginx site is disabled
+      ansible.builtin.file:
+        state: absent
+        path: /etc/nginx/sites-enabled/default
+    - name: Ensure Halcyon Nginx site is enabled
+      ansible.builtin.file:
+        src: /etc/nginx/sites-available/halcyon.conf
+        path: /etc/nginx/sites-enabled/halcyon.conf
+        state: link
+      notify: Reload Nginx  # If the sym link has changed, we need to reload Nginx
+  
+  handlers:
+    - name: Reload Nginx
+      ansible.builtin.systemd_service:
+        name: nginx
+        state: reloaded
