@@ -1,0 +1,5 @@
+---
+# The main YAML file to configure the entire system
+- import_playbook: playbooks/packages.yml
+- import_playbook: playbooks/services.yml
+- import_playbook: playbooks/deploy_portal.yml
