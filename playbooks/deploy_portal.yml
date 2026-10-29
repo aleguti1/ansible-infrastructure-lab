@@ -11,6 +11,7 @@
         owner: root
         group: root
         mode: '0755'
+
     - name: Copy HTML file to the web server
       ansible.builtin.copy:
         src: ../files/index.html
@@ -18,6 +19,8 @@
         owner: root
         group: root
         mode: '0644'
+    # ^No notify needed
+
     - name: Copy Halcyon site config file to web server
       ansible.builtin.copy:
         src: ../files/halcyon.conf
@@ -25,17 +28,27 @@
         owner: root
         group: root
         mode: '0644'
+      notify: Reload Nginx
+
     - name: Ensure the default Nginx site is disabled
       ansible.builtin.file:
         state: absent
         path: /etc/nginx/sites-enabled/default
+      notify: Reload Nginx
+
     - name: Ensure Halcyon Nginx site is enabled
       ansible.builtin.file:
         src: /etc/nginx/sites-available/halcyon.conf
         path: /etc/nginx/sites-enabled/halcyon.conf
         state: link
       notify: Reload Nginx  # If the sym link has changed, we need to reload Nginx
-  
+
+    - name: Validate Nginx configuration  # If this fails (invalid config), Reload Nginx handler won't run
+      ansible.builtin.command:
+        cmd: nginx -t
+      changed_when: false  # Reports task as OK instead of changed
+
+
   handlers:
     - name: Reload Nginx
       ansible.builtin.systemd_service:
