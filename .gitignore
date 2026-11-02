@@ -10,3 +10,6 @@
 *.pem
 *.key
 .env
+
+# Python venv
+.venv/
