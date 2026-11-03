@@ -15,3 +15,6 @@ python3 -m venv .venv
 # Activate the venv via:
 # source .venv/bin/activate
 # inside ansible-lab
+
+# Install required Ansible collections
+.venv/bin/ansible-galaxy collection install -r collections/requirements.yml
