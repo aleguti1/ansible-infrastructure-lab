@@ -1,0 +1,9 @@
+---
+# Note: Use --ask-pass 
+- name: Test Windows connectivity
+  hosts: windows
+  gather_facts: false
+
+  tasks:
+    - name: Verify WinRM connectivity
+      ansible.windows.win_ping:
