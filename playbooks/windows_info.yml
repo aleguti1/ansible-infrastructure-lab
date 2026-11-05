@@ -1,0 +1,9 @@
+---
+- name: Get Windows system information
+  hosts: dc01
+  gather_facts: true
+
+  tasks:
+    - name: Display the Windows version
+      ansible.builtin.debug:
+        msg: "{{ ansible_facts.distribution }} {{ansible_facts.distribution_version }}"
