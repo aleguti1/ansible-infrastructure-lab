@@ -2,6 +2,7 @@
 *.retry
 *.swp
 *~
+playbooks/temp.yml
 
 # Logs
 *.log
