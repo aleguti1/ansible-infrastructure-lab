@@ -1,0 +1,13 @@
+---
+- name: Promotes a Windows server to a domain controller
+  hosts: dc01
+  gather_facts: false
+
+  tasks:
+    - name: Promote to a domain controller
+      microsoft.ad.domain:
+        dns_domain_name: "{{ halcyon_domain_name }}"
+        domain_netbios_name: HALCYON
+        safe_mode_password: "{{ vault_halcyon_dsrm_password }}"
+        reboot: true
+      no_log: true  # Protect the DSRM password

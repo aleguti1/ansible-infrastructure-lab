@@ -1,5 +1,10 @@
 ---
 # The main YAML file to configure the entire system
+# Linux Configuration
 - import_playbook: playbooks/packages.yml
 - import_playbook: playbooks/services.yml
 - import_playbook: playbooks/deploy_portal.yml
+
+# Initial domain controller setup
+- import_playbook: playbooks/install_ad_ds.yml
+- import_playbook: playbooks/promote_dc.yml

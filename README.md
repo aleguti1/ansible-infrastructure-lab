@@ -12,22 +12,21 @@ This lab uses Oracle VirtualBox for virtualization. Each VM is configured with a
 | --- | --- | --- | --- |
 | ansible01 | Ubuntu Server 26.04 LTS | Ansible control node | 192.168.2.1 |
 | linux01 | Ubuntu Server 26.04 LTS | Managed Linux node/Nginx Web Server | 192.168.2.11 |
-| dc01 | Windows Server 2025 Standard Evaluation | Active Directory Domain Controller (planned) | 192.168.2.10 |
+| dc01 | Windows Server 2025 Standard Evaluation | Active Directory Domain Controller | 192.168.2.10 |
 
 ## Current Capabilities
 
 - Reproducible Ansible control node setup using a bootstrap script
-- SSH key-based authentication between the Ansible control node and managed Linux nodes
-- Ansible inventory for Linux and Windows hosts
-- Ansible playbooks for Linux package installation, service management, and Nginx configuration
-- Intranet web server using Nginx
-- WinRM connectivity to Windows Server using NTLM authentication over HTTP within the lab network
-- Windows system information gathering via Ansible
+- Centralized, idempotent infrastructure automation through `site.yml`
+- Linux server configuration, including package management, services, and an Nginx intranet
+- Windows Server management over WinRM
+0 Automated Active Directory deployment (`halcyon.internal`) including Domain Controller promotion
+- Encrypted credential management using Ansible Vault
 
 ## Planned Capabilities
 
-- Promote dc01 to a domain controller and create the Active Directory domain
-- Configure DNS
 - Configure WinRM over HTTPS
-- Add a Windows client and join it to the Active Directory domain
-- Implement infrastructure monitoring
+- Windows client provisioning
+- Windows client domain joining
+- Infrastructure monitoring
+- More streamlined bootstrap process/fewer manual steps
