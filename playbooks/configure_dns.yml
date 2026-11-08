@@ -1,0 +1,13 @@
+---
+- name: Configure DNS
+  hosts: dc01
+  gather_facts: false
+
+  tasks:
+    - name: Add linux01 DNS record
+      ansible.windows.win_dns_record:
+        name: intranet
+        type: A
+        value: 192.168.2.11
+        zone: halcyon.internal
+        state: present
