@@ -12,4 +12,6 @@
 
     - name: Reboot if installing a feature requires it
       ansible.windows.win_reboot:
-      when: ad_ds_install.reboot_required
+      when:
+        - ad_ds_install.reboot_required
+        - ad_ds_install.changed
