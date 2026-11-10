@@ -9,3 +9,4 @@
 - import_playbook: playbooks/install_ad_ds.yml
 - import_playbook: playbooks/promote_dc.yml
 - import_playbook: playbooks/configure_dns.yml
+- import_playbook: playbooks/configure_ad.yml

@@ -1,0 +1,13 @@
+---
+- name: Configure AD OUs and Groups
+  hosts: domain_controllers
+  gather_facts: false
+
+  tasks:
+    - name: Configure OUs
+      microsoft.ad.ou:
+        name: "{{ item }}"
+        state: present
+        path: DC=halcyon,DC=internal
+        protect_from_deletion: true
+      loop: "{{ ad_ous }}"

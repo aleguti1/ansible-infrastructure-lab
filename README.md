@@ -20,13 +20,14 @@ This lab uses Oracle VirtualBox for virtualization. Each VM is configured with a
 - Centralized, idempotent infrastructure automation through `site.yml`
 - Linux server configuration, including package management, services, and an Nginx intranet
 - Windows Server management over WinRM
-0 Automated Active Directory deployment (`halcyon.internal`) including Domain Controller promotion
+- Automated Active Directory deployment (`halcyon.internal`) including Domain Controller promotion
 - Encrypted credential management using Ansible Vault
+- Internal DNS configuration for intranet access
+- AD OU management
 
 ## Planned Capabilities
 
+- AD Security Group management
 - Configure WinRM over HTTPS
-- Windows client provisioning
-- Windows client domain joining
 - Infrastructure monitoring
 - More streamlined bootstrap process/fewer manual steps
