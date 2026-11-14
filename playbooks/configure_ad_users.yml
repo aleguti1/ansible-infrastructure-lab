@@ -1,0 +1,25 @@
+---
+- name: Configure AD users
+  hosts: domain_controllers
+  gather_facts: false
+
+  tasks:
+    - name: Configure AD users
+      microsoft.ad.user:
+        name: "{{ item.username }}"  # The user's CN
+        sam_account_name: "{{ item.username }}"  # Windows logon username
+        identity: "{{ item.username }}"  # Allows an account to be located regardless of its current OU
+        firstname: "{{ item.firstname }}"
+        surname: "{{ item.surname }}"
+        groups:
+          set: "{{ (item.groups | default([])) + ['Domain Users'] }}"
+        path: "{{ item.ou }},DC=halcyon,DC=internal"
+        # If no email is provided, it will simply use the username string:
+        email: "{{ item.email | default(item.username ~ '@halcyon.internal') }}"
+        # The password will be set to a shared default password if and only if this is a new account
+        password: "{{ vault_halcyon_initial_user_password }}"
+        update_password: on_create
+        state: present
+      loop: "{{ ad_users }}"
+      no_log: true  # Avoid displaying the password
+

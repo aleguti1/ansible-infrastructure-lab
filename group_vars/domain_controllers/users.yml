@@ -1,0 +1,16 @@
+---
+# ATTRIBUTES:
+# username: str (required)
+# firstname: str (required)
+# surname: str (required)
+# ou: str (required; relative DN, e.g., "OU=Support,OU=IT")
+# groups: list[str] (optional)
+# email: str (optional; defaults to username@halcyon.internal)
+
+ad_users:
+  - username: mvasquez
+    firstname: Mateo
+    surname: Vasquez
+    ou: "OU=IT"
+    groups:
+      - GG_IT

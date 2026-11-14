@@ -1,5 +1,6 @@
 ---
 # Replace each password with the password you configured in each case
-vault_linux01_become_password: "REPLACE_ME"
-vault_dc01_administrator_password: "REPLACE_ME"
-vault_halcyon_dsrm_password: "REPLACE_ME"
+vault_linux01_become_password: "REPLACE_ME"  # Sudo password for linux01
+vault_dc01_administrator_password: "REPLACE_ME"  # Administrator password for DC01
+vault_halcyon_dsrm_password: "REPLACE_ME"  # DSRM password for DC01
+vault_halcyon_initial_user_password: "REPLACE_ME"  # Default password for created AD accounts
