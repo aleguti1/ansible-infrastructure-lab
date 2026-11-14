@@ -23,11 +23,10 @@ This lab uses Oracle VirtualBox for virtualization. Each VM is configured with a
 - Automated Active Directory deployment (`halcyon.internal`) including Domain Controller promotion
 - Encrypted credential management using Ansible Vault
 - Internal DNS configuration for intranet access
-- AD OU management
+- AD OU, Security Group, and user management
 
 ## Planned Capabilities
 
-- AD Security Group management
 - Configure WinRM over HTTPS
 - Infrastructure monitoring
 - More streamlined bootstrap process/fewer manual steps
