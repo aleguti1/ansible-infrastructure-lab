@@ -1,3 +1,8 @@
 ad_ous:  # Organizational Units
   - IT
   - Staff
+  - Groups
+
+ad_groups:  # Security Groups
+  - GG_IT
+  - GG_Staff

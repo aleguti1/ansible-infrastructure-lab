@@ -11,3 +11,12 @@
         path: DC=halcyon,DC=internal
         protect_from_deletion: true
       loop: "{{ ad_ous }}"
+
+    - name: Configure security groups
+      microsoft.ad.group:
+        name: "{{ item }}"
+        scope: global
+        category: security
+        state: present
+        path: "OU=Groups,DC=halcyon,DC=internal"
+      loop: "{{ ad_groups }}"
