@@ -14,3 +14,16 @@ ad_users:
     ou: "OU=IT"
     groups:
       - GG_IT
+  - username: ewhitaker
+    firstname: Elise
+    surname: Whitaker
+    ou: "OU=Staff"
+    groups:
+      - GG_Staff
+    email: "ewhit@halcyon.internal"
+  - username: ncalder
+    firstname: Naomi
+    surname: Calder
+    ou: "OU=Staff"
+    groups:
+      - GG_Staff
