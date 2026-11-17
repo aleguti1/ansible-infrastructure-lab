@@ -27,6 +27,5 @@ This lab uses Oracle VirtualBox for virtualization. Each VM is configured with a
 
 ## Planned Capabilities
 
-- Configure WinRM over HTTPS
 - Infrastructure monitoring
 - More streamlined bootstrap process/fewer manual steps
