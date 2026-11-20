@@ -12,6 +12,7 @@ This lab uses Oracle VirtualBox for virtualization. Each VM is configured with a
 | --- | --- | --- | --- |
 | ansible01 | Ubuntu Server 26.04 LTS | Ansible control node | 192.168.2.1 |
 | linux01 | Ubuntu Server 26.04 LTS | Managed Linux node/Nginx Web Server | 192.168.2.11 |
+| linux02 | Ubuntu Server 26.04 LTS | Monitoring Server | 192.168.2.12 |
 | dc01 | Windows Server 2025 Standard Evaluation | Active Directory Domain Controller | 192.168.2.10 |
 
 ## Current Capabilities
