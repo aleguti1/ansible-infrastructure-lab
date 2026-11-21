@@ -71,7 +71,7 @@ Adapter 2 will allow the VMs to communicate with each other through a virtual sw
 - Virtual Cable Connected: Checked
 
 #### Accessing the Shell
-To access the shell, you will first need to run the VM from VirtualBox. If this is the first time it's running, you may need to wait a few minutes for the OS to install. If the VM becomes unresponsive, you may need to restart it.
+To access the shell, you will first need to run the VM from VirtualBox. If this is the first time it's running, you may need to wait a few minutes for the OS to install.
 
 Once the OS has booted, you may log into `localadmin` on the terminal. Alternatively, if you set up port forwarding, you may run `ssh -p 2222 localadmin@127.0.0.1` on your local computer's terminal to access the VM via SSH.
 #### Bootstrapping 
@@ -169,3 +169,56 @@ Adapter 2 will allow the VMs to communicate with each other through a virtual sw
 - Name: `ANSIBLENET` (or any name of your choice, but it must be the same across all VMs)
 - Promiscuous Mode: Deny
 - Virtual Cable Connected: Checked
+
+#### Accessing the Shell
+To access the shell, you will first need to run the VM from VirtualBox. If this is the first time it's running, you may need to wait a few minutes for the OS to install.
+
+Once the OS has booted, you may log into localadmin on the terminal. 
+
+#### Bootstrapping
+Unlike with `ansible01`, you will not need to clone anything from the repository. You simply need to ensure the VM can communicate with `ansible01` using SSH, and Ansible will take care of the rest later.
+
+First, you will need to install and enable SSH.
+```bash
+sudo apt install -y openssh-server
+sudo systemctl enable --now ssh
+```
+
+Then, you will need to give the VM an IPv4 address on the internal network to allow it to communicate with other VMs.
+
+Before configuring anything, view a list of available interfaces.
+```bash
+ip -br addr
+```
+
+Sample output (simplified to show IPv4 addresses only):
+| Interface | State | Addresses | 
+| --- | --- | --- |
+| lo | UNKNOWN | 127.0.0.1/8 |
+| enp0s3 | UP | 10.0.2.15/24 |
+| enp0s8 | UP | - |
+
+Here, `lo` is the loopback interface, and `enp0s3` is the NAT interface used to connect to the internet. If you do not see an interface without an IPv4 address (in this case, `enp0s8`), double check the network adapter settings in Virtual Box.
+
+Then configure the right IPv4 address on the unconfigured interface using `netplan`.
+
+On `linux01`:
+```bash
+sudo netplan set ethernets.enp0s8.dhcp4=false
+sudo netplan set ethernets.enp0s8.addresses='[192.168.2.11/24]'
+sudo netplan apply
+```
+
+On `linux02`:
+```bash
+sudo netplan set ethernets.enp0s8.dhcp4=false
+sudo netplan set ethernets.enp0s8.addresses='[192.168.2.12/24]'
+sudo netplan apply
+```
+
+Finally, you may verify the configuration.
+
+To ensure the VM can reach `ansible01` (assuming it's running and already configured):
+```bash
+ping -c 4 192.168.2.1
+```
