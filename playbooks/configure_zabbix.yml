@@ -1,0 +1,20 @@
+---
+- name: Configure Zabbix
+  hosts: monitoring_servers
+  gather_facts: false
+  become: true
+  become_user: postgres
+
+  tasks:
+    - name: Create Zabbix database user
+      community.postgresql.postgresql_user:
+        name: zabbix
+        password: "{{ vault_zabbix_db_password }}"
+        state: present
+      no_log: true
+
+    - name: Create PostgreSQL database
+      community.postgresql.postgresql_db:
+        name: zabbix
+        owner: zabbix
+        state: present

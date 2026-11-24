@@ -4,3 +4,4 @@ collections:
     version: 3.9.2
   - name: microsoft.ad
     version: 1.12.1
+  - name: community.postgresql

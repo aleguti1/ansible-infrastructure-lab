@@ -5,3 +5,4 @@ vault_linux02_become_password: "REPLACE_ME"  # Sudo password for linux02
 vault_dc01_administrator_password: "REPLACE_ME"  # Administrator password for DC01
 vault_halcyon_dsrm_password: "REPLACE_ME"  # DSRM password for DC01
 vault_halcyon_initial_user_password: "REPLACE_ME"  # Default password for created AD accounts
+vault_zabbix_db_password: "REPLACE_ME"  # Password for the zabbix user on linux02

@@ -14,6 +14,7 @@
           - tree
           - unzip
           - openssh-server
+          - acl
         state: present
         update_cache: true
         cache_valid_time: 3600  # 1 hour
@@ -47,6 +48,9 @@
           - zabbix-nginx-conf
           - zabbix-sql-scripts
           - zabbix-agent
+          # Required to allow Ansible to communicate with postgresql:
           - postgresql
+          - python3-psycopg2  
+          - libpq-dev
         state: present
         update_cache: true
