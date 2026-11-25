@@ -3,18 +3,43 @@
   hosts: monitoring_servers
   gather_facts: false
   become: true
-  become_user: postgres
 
   tasks:
     - name: Create Zabbix database user
+      become_user: postgres
       community.postgresql.postgresql_user:
         name: zabbix
         password: "{{ vault_zabbix_db_password }}"
         state: present
       no_log: true
 
-    - name: Create PostgreSQL database
+    - name: Create Zabbix database
+      become_user: postgres
       community.postgresql.postgresql_db:
         name: zabbix
         owner: zabbix
+        encoding: UTF8
+        template: template0
         state: present
+
+    - name: Check whether the tables already exist
+      become_user: zabbix
+      community.postgresql.postgresql_query:
+        login_db: zabbix
+        login_user: zabbix
+        query: >
+          SELECT COUNT(*)
+          FROM information_schema.tables
+          WHERE table_schema = 'public';
+      register: num_tables
+      changed_when: false
+
+    # This task is not idempotent, so it should only execute if the tables don't exist yet
+    - name: Import initial schema and data for Zabbix database
+      become_user: zabbix
+      community.postgresql.postgresql_db:
+        name: zabbix
+        login_user: zabbix
+        state: restore
+        target: /usr/share/zabbix/sql-scripts/postgresql/server.sql.gz
+      when: num_tables.query_result[0]['count'] == 0
