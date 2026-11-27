@@ -43,3 +43,35 @@
         state: restore
         target: /usr/share/zabbix/sql-scripts/postgresql/server.sql.gz
       when: num_tables.query_result[0]['count'] == 0
+
+    - name: Configure zabbix_server.conf
+      block:
+        - name: Ensure DBName is set to zabbix
+          ansible.builtin.lineinfile:
+            path: /etc/zabbix/zabbix_server.conf
+            regexp: '^DBName='
+            line: DBName=zabbix
+            state: present
+
+        - name: Ensure DBUser is set to zabbix
+          ansible.builtin.lineinfile:
+            path: /etc/zabbix/zabbix_server.conf
+            regexp: '^DBUser='
+            line: DBUser=zabbix
+            state: present
+
+        - name: Ensure DBHost is set to localhost
+          ansible.builtin.lineinfile:
+            path: /etc/zabbix/zabbix_server.conf
+            regexp: '^DBHost='
+            line: DBHost=localhost
+            state: present
+
+        - name: Ensure DBPassword is set
+          ansible.builtin.lineinfile:
+            path: /etc/zabbix/zabbix_server.conf
+            regexp: '^DBPassword='
+            line: "DBPassword={{ vault_zabbix_db_password }}"
+            state: present
+          no_log: true
+
